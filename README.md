@@ -7,7 +7,7 @@ This project is part of [Udacity](https://www.udacity.com "Udacity - Be in deman
 
 
 # Project Description
-The assignment of this project is mainly to develop key software functions for Drone Estimator and then work with the PID Controller that we did on the last project to form a Drone Controller. On this project, the technique of Sensor Fusion has been implement through Extended Kalman Filter and Complimentary Filter.  The assignment of this project can be divided into 6 steps:
+The assignment of this project is mainly to develop key software functions for Drone Estimator and then work with the PID Controller that we did on the last project to form a Drone Controller. On this project, the technique of Sensor Fusion has been implement through Extended Kalman Filter and Complimentary Filter.  To ensure the project move smooth,  the project is developed step by step. And there are 6 steps:
 <ul>
         <li>Sensors Noise Evaluation</li>
         <li>Attitude Estimation with Complimentary Filter</li>
