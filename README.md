@@ -47,7 +47,7 @@ The assignment is dedicated to collect the data of GPS X data and accelerometer 
 we get the standard deviation 0.68119 and 0.493118 and set on the MeasuredStdDev_GPSPosXY and MeasuredStdDev_AccelXY respectively. The result also match the settings in
 [SimulatedSensors.txt](./config/SimulatedSensors.txt)
 
-</p>)
+</p>
 The following is the test result:
 <p align="center">
 <img src="images/scenario6.gif" width="800"/>
@@ -55,7 +55,26 @@ The following is the test result:
 
 ![result6](./images/result6.png)  
 
-## Scenario 2: Body rate and roll/pitch control (scenario 2)
+## Step 2: Attitude Control
+The step is simply to build a complimentary filter with the input of Accelerometer and Gyroscope to estimate the attitude of the drone.  
+The state and measurements are given by:
+![att_eq1](./images/att_eq1.png)  
+where Xt is the state of the drone, Zt is the measurement from Accelerometer and Gyroscope. Theta is pitch angle and psi is the rolling angle measured from Accelerometer.
+p and q is the rolling rate of x-axis and y-axis measured from Gyroscope
+</p>
+To build a complimentary filter,  the following equation is using:
+![att_eq2](./images/att_eq2.png)  
+where the theta_hat and psi_hat is the state of X, tau is the time constant and dt is time period measurement  
+</p>
+We need to convert the acceleration data into the Euler angles by the following equation:
+tan(psi)=(acceleration of y)/(acceleration of x)
+sin(theta)=(acceleration of x)/(gravity)
+</p>
+And also we need to convert the input of gyroscopy from the angular velocity to Euler angles through the following equations:
+<p align="center">
+<img src="images/att_eq3.png" width="300"/>
+</p>
+
 ### Body Rate Controller
 The Body Rate Controller is a P Controller.  The responsibility of the controller is to generate the moments command.  Through the error between the body rate command and actual body rate that fed back from the drone, we could find out desired moments to the drone.
 
