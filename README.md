@@ -62,13 +62,17 @@ The state and measurements are given by:
 where Xt is the state of the drone, Zt is the measurement from Accelerometer and Gyroscope. Theta is pitch angle and psi is the rolling angle measured from Accelerometer.
 p and q is the rolling rate of x-axis and y-axis measured from Gyroscope
 </p>
-To build a complimentary filter,  the following equation is using:
+To build a complimentary filter,  the following equation is using: 
+
 ![att_eq2](./images/att_eq2.png)  
 where the theta_hat and psi_hat is the state of X, tau is the time constant and dt is time period measurement  
 </p>
-We need to convert the acceleration data into the Euler angles by the following equation:
-tan(psi)=(acceleration of y)/(acceleration of x)
-sin(theta)=(acceleration of x)/(gravity)
+We need to convert the acceleration data into the Euler angles by the following equation: 
+
+tan(psi)=(acceleration of y)/(acceleration of x) 
+
+sin(theta)=(acceleration of x)/(gravity) 
+
 </p>
 And also we need to convert the input of gyroscopy from the angular velocity to Euler angles through the following equations:
 <p align="center">
