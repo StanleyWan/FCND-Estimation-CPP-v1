@@ -77,7 +77,8 @@ And also we need to convert the input of gyroscopy from the body rate(p,q,r) to 
 <p align="center">
 <img src="images/att_eq3.png" width="300"/>
 </p>
-The code has been implement on the routine QuadEstimatorEKF::UpdateFromIMU() under the file [QuadEstimatorEKF.cpp](./src/QuadEstimatorEKF.cpp) 
+The code has been implement on the routine QuadEstimatorEKF::UpdateFromIMU() under the file [QuadEstimatorEKF.cpp](./src/QuadEstimatorEKF.cpp)  
+
 The following is the test result:
 <p align="center">
 <img src="images/scenario7.gif" width="800"/>
