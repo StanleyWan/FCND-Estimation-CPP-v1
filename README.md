@@ -9,36 +9,20 @@ This project is part of [Udacity](https://www.udacity.com "Udacity - Be in deman
 # Project Description
 The assignment of this project is mainly to develop key software functions for Drone Estimator and then work with the PID Controller that we did on the last project to form a Drone Controller. On this project, the technique of Sensor Fusion has been implement through Extended Kalman Filter and Complimentary Filter.  To ensure the project move smooth,  the project is developed step by step. And there are 6 steps:
 <ul>
-        <li>Sensors Noise Evaluation</li>
-        <li>Attitude Estimation with Complimentary Filter</li>
-        <li>Prediction Step with Extended Kalman Filter</li>
+        <li>Sensors Noise</li>
+        <li>Attitude Estimation</li>
+        <li>Prediction Step</li>
         <li>Magnetometer Update</li>
-        <li>GPS Update</li>
-        <li>Work with the PID Controller</li>        
+        <li>Closed Loop + GPS Update</li>
+        <li>Adding the PID Controller</li>        
 </ul>        
-The Attitude Controller consists of 3 parts: 
-<ul>
-        <li>Roll-Pitch Controller: control the pitch and roll angles of a drone</li>
-        <li>Yaw Controller: control the yaw angle of a drone.</li>
-        <li>Body Controller: control the turning rate of a drone.</li>
-</ul>
-<p></p>
-To ensure the cascaded 3D controller work,  the controller need to get test and pass under 5 preset scenarios built by Udacity.
-The following is the architecture of the Cascaded 3D Drone controller:  
-<p></p>
-<p align="center">
-<img src="images/topic.png" width="600"/>
-</p>
-
-<p></p> 
-The inputs of the cascaded 3D controller should be the position, velocity and the Euler Angles of the drone.  These inputs could be treated as the commands from the user. The output of the controller should be the collective thrust and moments of the drone. In between the controller and the rotors, there is a converter that convert the thrust and moments to the appropriate 4 different desired thrust forces for the moments. The value of the thrust forces will then pass to the engins of the rotors. The drone will then feed back the actual position, velocity and Euler angles to the cascaded 3D controller. 
 
 
 # Project Setup
 <ul>
 <li>Download or clone the C++ simulator repository</li>  
 
-    git clone https://github.com/udacity/FCND-Controls-CPP.git
+    git clone https://github.com/udacity/FCND-Estimation-CPP.git
 
 <li>Download and install Visual Studio.</li>
 <li>Select Open Project/Solution and open <simulator>/Simulator.sln</li>
@@ -48,6 +32,8 @@ The inputs of the cascaded 3D controller should be the position, velocity and th
 
 # Implementation and Testing 
 All the C++ codes are in the [./src](./src) directory. However, most of my work only focus on the below two files:  <ul>
+        <li> [QuadEstimatorEKF.cpp](./src/QuadEstimatorEKF.cpp): it contains the software modules that need to build the Estimator.</li>
+        <li> [QuadEstimatorEKF.txt](./src/QuadEstimatorEKF.txt): it contains the software modules that need to build the Estimator.</li>
         <li> [QuadControl.cpp](./src/QuadControl.cpp): it contains the software modules that need to build the cascaded 3D controller.</li>
         <li> [QuadControlParams.txt](./config/QuadControlParams.txt): the file contains the configuration data for the cascaded 3D controller.</li>
 </ul>      
