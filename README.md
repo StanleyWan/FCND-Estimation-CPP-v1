@@ -30,8 +30,8 @@ The assignment of this project is mainly to develop key software functions for D
 <li>To compile and run the project/simulator, simply click on the green play button at the top of the screen.  When you run the simulator, you should see a single quadcopter, falling down.</li>
 </ul>
 
-# Implementation and Testing 
-All the C++ codes are in the [./src](./src) directory. However, most of my work only focus on the below two files:  <ul>
+# Implementation 
+All the C++ codes are in the [./src](./src) directory. However, most of my work only focus on the below four files:  <ul>
         <li> [QuadEstimatorEKF.cpp](./src/QuadEstimatorEKF.cpp): it contains the software modules that need to build the Estimator.</li>
         <li> [QuadEstimatorEKF.txt](./src/QuadEstimatorEKF.txt): it contains the software modules that need to build the Estimator.</li>
         <li> [QuadControl.cpp](./src/QuadControl.cpp): it contains the software modules that need to build the cascaded 3D controller.</li>
