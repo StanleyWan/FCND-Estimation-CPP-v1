@@ -47,7 +47,7 @@ The assignment is dedicated to collect the data of GPS X data and accelerometer 
 we get the standard deviation 0.68119 and 0.493118 and set on the MeasuredStdDev_GPSPosXY and MeasuredStdDev_AccelXY respectively.  
 The following is the test result:
 <p align="center">
-<img src="images/scenario6.gif" width="500"/>
+<img src="images/scenario6.gif" width="600"/>
 </p>
 
 ![result6](./images/result6.png)  
