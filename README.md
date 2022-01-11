@@ -56,7 +56,7 @@ The following is the test result:
 ![result6](./images/result6.png)  
 
 ## Step 2: Attitude Control
-The step is simply to build a complimentary filter with the input of Accelerometer and Gyroscope to estimate the attitude of the drone.  
+The step is simply to build a complimentary filter with the input of Accelerometer and Gyroscope to estimate the attitude of the drone.  The requirement of this step for us is only to convert the the data of gyroscope  to Euler Angles.  However,  I believe it is good for me to present on building the complimentary filter a little bit detail.
 The state and measurements are given by:
 ![att_eq1](./images/att_eq1.png)  
 where Xt is the state of the drone, Zt is the measurement from Accelerometer and Gyroscope. Theta is pitch angle and psi is the rolling angle measured from Accelerometer.
@@ -77,6 +77,13 @@ And also we need to convert the input of gyroscopy from the body rate(p,q,r) to 
 <p align="center">
 <img src="images/att_eq3.png" width="300"/>
 </p>
+The code has been implement on the routine QuadEstimatorEKF::UpdateFromIMU() under the file [QuadEstimatorEKF.cpp](./src/QuadEstimatorEKF.cpp) 
+The following is the test result:
+<p align="center">
+<img src="images/scenario7.gif" width="800"/>
+</p>
+
+![result6](./images/result7.png)
 
 ### Body Rate Controller
 The Body Rate Controller is a P Controller.  The responsibility of the controller is to generate the moments command.  Through the error between the body rate command and actual body rate that fed back from the drone, we could find out desired moments to the drone.
