@@ -70,11 +70,10 @@ where the theta_hat and psi_hat is the state of X, tau is the time constant and 
 We need to convert the acceleration data into the Euler angles by the following equation: 
 
 tan(psi)=(acceleration of y)/(acceleration of x) 
-
 sin(theta)=(acceleration of x)/(gravity) 
 
 </p>
-And also we need to convert the input of gyroscopy from the angular velocity to Euler angles through the following equations:
+And also we need to convert the input of gyroscopy from the body rate(p,q,r) to Euler angles through the following equations:
 <p align="center">
 <img src="images/att_eq3.png" width="300"/>
 </p>
