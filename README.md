@@ -38,18 +38,18 @@ All the C++ codes are in the [./src](./src) directory. However, most of my work 
         <li> [QuadControlParams.txt](./config/QuadControlParams.txt): the file contains the configuration data for the cascaded 3D controller.</li>
 </ul>      
                 
-## Scenario 1: Introduction
-Before we start to write the code, firstly, we need to tune the Mass parameter in [QuadControlParams.txt](./config/QuadControlParams.txt).  It is because at the very beginning the thrusts are simply set to:
-
-        QuadControlParams.Mass * 9.81 / 4
-
-Therefore, if it the mass doesn't match the actual mass of the drone, it'll fall down.  
-The following is the test result of the Scenario 1: 
+## Step 1: Sensor Noise
+None of the sensors has no noise.  So we need to know how noisy of a sensor.  On this assignment,  the quad's sensor has been simulated to add with some noise. What we need to do is to record some sensor data on a static quad.  And then,  based on the normal distribution,  we the can calculated the standard deviation of a sensor data there.    
+The assignment is dedicated to collect the data of GPS X data and accelerometer X data into the [Graph1.txt](./config/log/Graph1.txt) and [Graph1.txt](./config/log/Graph1.txt) respectively.  Through the standard deviation equation:
+![sd_equation](./images/sd_equation.png)  
+we get the standard deviation 0.68119 and 0.493118 and set on the MeasuredStdDev_GPSPosXY and MeasuredStdDev_AccelXY respectively.  
+The following is the test result:
 <p align="center">
-<img src="images/Simulator_intro_1.gif" width="500"/>
+<img src="images/scenario6.gif" width="500"/>
 </p>
-
-![s1testresult](./images/s1testresult.png)
+<p align="center">
+<img src="images/result6"/>
+</p>
 
 
 ## Scenario 2: Body rate and roll/pitch control (scenario 2)
