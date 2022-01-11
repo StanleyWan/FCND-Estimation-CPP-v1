@@ -41,16 +41,16 @@ All the C++ codes are in the [./src](./src) directory. However, most of my work 
 ## Step 1: Sensor Noise
 None of the sensors has no noise.  So we need to know how noisy of a sensor.  On this assignment,  the quad's sensor has been simulated to add with some noise. What we need to do is to record some sensor data on a static quad.  And then,  based on the normal distribution,  we the can calculated the standard deviation of a sensor data there.    
 The assignment is dedicated to collect the data of GPS X data and accelerometer X data into the [Graph1.txt](./config/log/Graph1.txt) and [Graph1.txt](./config/log/Graph1.txt) respectively.  Through the standard deviation equation:
+
 ![sd_equation](./images/sd_equation.png)  
+
 we get the standard deviation 0.68119 and 0.493118 and set on the MeasuredStdDev_GPSPosXY and MeasuredStdDev_AccelXY respectively.  
 The following is the test result:
 <p align="center">
 <img src="images/scenario6.gif" width="500"/>
 </p>
-<p align="center">
-<img src="images/result6"/>
-</p>
 
+![result6](./images/result6.png)  
 
 ## Scenario 2: Body rate and roll/pitch control (scenario 2)
 ### Body Rate Controller
