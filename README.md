@@ -1,17 +1,20 @@
-# FCND-Controls-CPP
-![PID Controller](./images/demo.png)  
-This project is part of [Udacity](https://www.udacity.com "Udacity - Be in demand")'s [Flying Car Nanodegree](https://www.udacity.com/course/flying-car-nanodegree--nd787).  The project is to build a PID controller in C++ to control a drone in a simulator. The project is using Visual Studio 2022.
+# FCND-Estimation-CPP
+![base_filter](./images/base_filter.png)  
+This project is part of [Udacity](https://www.udacity.com "Udacity - Be in demand")'s [Flying Car Nanodegree](https://www.udacity.com/course/flying-car-nanodegree--nd787).  The project is to build the estimation portion for Drone Controller with C++ in a simulator. The project is using Visual Studio 2022.
 
 
 ---
 
 
 # Project Description
-The project is mainly to implement and tune a cascaded 3D controller for a drone. The cascaded 3D controller can be divided into 3 parts: 
+The assignment of this project is mainly to develop key software functions for Drone Estimator and then work with the PID Controller that we did on the last project to form a Drone Controller. On this project, the technique of Sensor Fusion has been implement through Extended Kalman Filter and Complimentary Filter.  The assignment of this project can be divided into 6 steps:
 <ul>
-        <li>Altitude Controller: control the altitude position of a drone. </li>
-        <li>Lateral Controller: control the lateral position of a drone.</li>
-        <li>Attitude Controller: control the posture of a drone.</li>
+        <li>Sensors Noise Evaluation</li>
+        <li>Attitude Estimation with Complimentary Filter</li>
+        <li>Prediction Step with Extended Kalman Filter</li>
+        <li>Magnetometer Update</li>
+        <li>GPS Update</li>
+        <li>Work with the PID Controller</li>        
 </ul>        
 The Attitude Controller consists of 3 parts: 
 <ul>
