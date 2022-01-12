@@ -48,7 +48,7 @@ we get the standard deviation 0.68119 and 0.493118 and set on the MeasuredStdDev
 [SimulatedSensors.txt](./config/SimulatedSensors.txt)
 
 </p>
-The following is the test result:
+The right standard deviative should contain 68% or more data.  The following is the test result:
 <p align="center">
 <img src="images/scenario6.gif" width="800"/>
 </p>
@@ -81,15 +81,26 @@ And also we need to convert the input of gyroscopy from the body rate(p,q,r) to 
 
 The code has been implement on the routine QuadEstimatorEKF::UpdateFromIMU() under the file  [QuadEstimatorEKF.cpp](./src/QuadEstimatorEKF.cpp) 
 
-The following is the test result:
+A success Attitude Controller should be able to reduce the attitdue errors to get within 0.1 rad for each of the Euler angles. The following is the test result:
 <p align="center">
 <img src="images/scenario7.gif" width="800"/>
 </p>
 
 ![result6](./images/result7.png)
 
-### Body Rate Controller
-The Body Rate Controller is a P Controller.  The responsibility of the controller is to generate the moments command.  Through the error between the body rate command and actual body rate that fed back from the drone, we could find out desired moments to the drone.
+## Step 3: Predict State
+This step is to show how to get the predict state and covariance after transit 1 step (i.e. after 1 dt). Since transit forward may involve the sine function of the tilt angles, Extended Kalman Filter will be used.  So we need to show how to build up the Jocobian Matrix also.
+The Body Rate Controller is a P Controller.  The responsibility of the controller is to generate the moments command.  Through the error between the body rate command and actual body rate that fed back from the drone, we could find out desired moments to the drone.  
+The following is the procedure on how to transit the drone a step:  
+<p align="center">
+<img src="images/predict1.png" width="300"/>
+</p> 
+
+
+The following is the procedure on how to build a Jocobian Matrix
+<p align="center">
+<img src="images/predict2.png" width="300"/>
+</p> 
 
         pqrErr = pqrCmd - pqr
         momentCmd = I * kpPQR * pqrErr
