@@ -93,13 +93,13 @@ This step is to show how to get the predict state and covariance after transit 1
 The Body Rate Controller is a P Controller.  The responsibility of the controller is to generate the moments command.  Through the error between the body rate command and actual body rate that fed back from the drone, we could find out desired moments to the drone.  
 The following is the procedure on how to transit the drone a step:  
 <p align="center">
-<img src="images/predict1.png" width="300"/>
+<img src="images/predict1.png" width="800"/>
 </p> 
 
 
 The following is the procedure on how to build a Jocobian Matrix
 <p align="center">
-<img src="images/predict2.png" width="300"/>
+<img src="images/predict2.png" width="800"/>
 </p> 
 
         pqrErr = pqrCmd - pqr
