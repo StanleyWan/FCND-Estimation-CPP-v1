@@ -124,19 +124,20 @@ If we do it right on Predict Covariance and also we tune the QPosXYstd and QVelX
 </p> 
 
 
-### Roll-Pitch Controller
-The Roll-Pitch Controller is also a proportional controller.  The controller use the acceleration and thrust commands, in addition to the vehicle attitude to output a body rate command. It sets the desired rate of change of the given matrix elements (R13 and R23).  We thus get the error value by subtract the actual matrix element (R13, R23) with the command matrix element (R13, R23). 
+## Step 4: Magnetometer Update
+If we only use the Accelerometer and Gyroscope for our estimation without the magnetometer update, we will notice that the estimate yaw is drifting away.  This step is try to make an update for the yaw value.  The algorithm for update the yaw is simple.  It is simply collect data from the Magneometer and them make a normalization to ensure the yaw angle within the boundance (-pI..PI).  And then we make an update yaw angle as follows:
 
-![Equation1](./images/equation1.png)   
+        new yaw state = old yaw state + Kalman gain * (measurement - predict measurement)
 
-The codes are implemented on the function BodyRateControl() and RollPitchControl() in the file [QuadControl.cpp](./src/QuadControl.cpp)
-
-The following is the testing result on scenario2.  It mainly tests the leveling capability of a drone.
+The code of Magnetometer Update has been implemented on the function UpdateFromMag() under the file  [QuadEstimatorEKF.cpp](./src/QuadEstimatorEKF.cpp).
+If we do it right and the parameter QWawStd in [QuadEstimatorEKF.txt](./config/QuadEstimatorEKF.txt) is well tune, we will find that the error will be less than 0.1 radian in heading fo at least 10 seconds of the simulation.  The following is the test result: 
 <p align="center">
-<img src="images/scenario2.gif" width="500"/>
+<img src="images/scenario10.gif" width="800"/>
 </p>
 
-![s2testresult](./images/s2testresult.png)
+![result10](./images/result10.png)
+
+
 
 ## Scenario 3: Position/velocity and yaw angle control(scenario 3)
 
