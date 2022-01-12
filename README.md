@@ -47,7 +47,7 @@ The assignment is dedicated to collect the data of GPS X data and accelerometer 
 we get the standard deviation 0.68119 and 0.493118 and set on the MeasuredStdDev_GPSPosXY and MeasuredStdDev_AccelXY respectively. The result also match the settings in
 [SimulatedSensors.txt](./config/SimulatedSensors.txt)
 
-</p>
+<p></p>
 The right standard deviative should contain 68% or more data.  The following is the test result:
 <p align="center">
 <img src="images/scenario6.gif" width="800"/>
@@ -61,19 +61,19 @@ The state and measurements are given by:
 ![att_eq1](./images/att_eq1.png)  
 where Xt is the state of the drone, Zt is the measurement from Accelerometer and Gyroscope. Theta is pitch angle and psi is the rolling angle measured from Accelerometer.
 p and q is the rolling rate of x-axis and y-axis measured from Gyroscope
-</p>
+<p></p>
 To build a complimentary filter,  the following equation is using: 
 
 ![att_eq2](./images/att_eq2.png)  
 where the theta_hat and psi_hat is the state of X, tau is the time constant and dt is time period measurement  
-</p>
+<p></p>
 We need to convert the acceleration data into the Euler angles by the following equation: 
 
 tan(psi)=(acceleration of y)/(acceleration of x)  
 
 sin(theta)=(acceleration of x)/(gravity)  
 
-</p>
+<p></p>
 And also we need to convert the input of gyroscopy from the body rate(p,q,r) to Euler angles through the following equations:
 <p align="center">
 <img src="images/att_eq3.png" width="300"/>
@@ -91,25 +91,24 @@ A success Attitude Controller should be able to reduce the attitdue errors to ge
 ## Step 3: Predict State
 This step is to show how to get the predict state and covariance after transit 1 step (i.e. after 1 dt). Since transit forward may involve the sine function of the tilt angles, Extended Kalman Filter will be used.  So we need to show how to build up the Jocobian Matrix also.
 The Body Rate Controller is a P Controller.  The responsibility of the controller is to generate the moments command.  Through the error between the body rate command and actual body rate that fed back from the drone, we could find out desired moments to the drone.  
-The following is the procedure on how to transit the drone a step:  
+The following is the procedure on how to transit the drone a step in 1D:  
 <p align="center">
 <img src="images/predict1.png" width="800"/>
 </p> 
 
 
-The following is the procedure on how to build a Jocobian Matrix
+The following is the procedure on how to build a Jocobian Matrix in 1D
 <p align="center">
 <img src="images/predict2.png" width="800"/>
 </p> 
 
-        pqrErr = pqrCmd - pqr
-        momentCmd = I * kpPQR * pqrErr
-        where pqrCmd is the body rate command for p,q,q
-              pqr is the actual body rate fed back from drone 
-              pqrErr is the difference between the pqrCmd and prq
-              I is the moment inertia
-              kpPQR is the parameter of the controller to the error
 <p></p>
+
+Similarly, we can use the algorithm to 3D with difference state and transition model as follows:  
+
+<p align="center">
+<img src="images/predict2.png" width="800"/>
+</p> 
 
 ### Roll-Pitch Controller
 The Roll-Pitch Controller is also a proportional controller.  The controller use the acceleration and thrust commands, in addition to the vehicle attitude to output a body rate command. It sets the desired rate of change of the given matrix elements (R13 and R23).  We thus get the error value by subtract the actual matrix element (R13, R23) with the command matrix element (R13, R23). 
