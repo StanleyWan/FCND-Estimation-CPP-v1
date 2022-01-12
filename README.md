@@ -107,7 +107,7 @@ The following is the procedure on how to build a Jocobian Matrix in 1D
 Similarly, we can use the algorithm to 3D with difference state and transition model as follows:  
 
 <p align="center">
-<img src="images/predict3.png" width="800"/>
+<img src="images/predict3.png" width="900"/>
 </p> 
 
 ### Roll-Pitch Controller
