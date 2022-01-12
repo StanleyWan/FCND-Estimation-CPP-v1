@@ -86,7 +86,7 @@ A success Attitude Controller should be able to reduce the attitdue errors to ge
 <img src="images/scenario7.gif" width="800"/>
 </p>
 
-![result6](./images/result7.png)
+![result7](./images/result7.png)
 
 ## Step 3: Predict State
 This step is to show how to get the predict state and covariance after transit 1 step (i.e. after 1 dt). Since transit forward may involve the sine function of the tilt angles, Extended Kalman Filter will be used.  So we need to show how to build up the Jocobian Matrix also.
@@ -109,6 +109,20 @@ Similarly, we can use the algorithm to 3D with difference state and transition m
 <p align="center">
 <img src="images/predict3.png" width="900"/>
 </p> 
+
+I have implemented the code on the routine PredictState(), GetRbgPrime() and Predict() under the file  [QuadEstimatorEKF.cpp](./src/QuadEstimatorEKF.cpp) 
+
+There are two tests on this step.  One is for Predict State test and the other is Predict Covariance test.  
+If we do it right on the Predict State, the estimator state would track the actual state, with only reasonable slow drift.  The following is the result of Predict State test:  
+<p align="center">
+<img src="images/scenario8.gif" width="800"/>
+</p> 
+
+If we do it right on Predict Covariance and also we tune the QPosXYstd and QVelXYStd correctly in [QuadEstimatorEKF.txt](./config/QuadEstimatorEKF.txt),  the covariance should grows very much like the data.  The following is the test result for the Predict Covariance test:  
+<p align="center">
+<img src="images/scenario9.gif" width="800"/>
+</p> 
+
 
 ### Roll-Pitch Controller
 The Roll-Pitch Controller is also a proportional controller.  The controller use the acceleration and thrust commands, in addition to the vehicle attitude to output a body rate command. It sets the desired rate of change of the given matrix elements (R13 and R23).  We thus get the error value by subtract the actual matrix element (R13, R23) with the command matrix element (R13, R23). 
