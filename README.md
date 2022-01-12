@@ -115,7 +115,7 @@ I have implemented the code on the routine PredictState(), GetRbgPrime() and Pre
 There are two tests on this step.  One is for Predict State test and the other is Predict Covariance test.  
 If we do it right on the Predict State, the estimator state would track the actual state, with only reasonable slow drift.  The following is the result of Predict State test:  
 <p align="center">
-<img src="images/scenario8.gif" width="800"/>
+<img src="images/Scenario8.gif" width="800"/>
 </p> 
 
 If we do it right on Predict Covariance and also we tune the QPosXYstd and QVelXYStd correctly in [QuadEstimatorEKF.txt](./config/QuadEstimatorEKF.txt),  the covariance should grows very much like the data.  The following is the test result for the Predict Covariance test:  
