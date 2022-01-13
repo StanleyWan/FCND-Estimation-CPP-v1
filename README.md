@@ -69,7 +69,7 @@ The first part of this equation needs rolling angle and pitch angle from the Gyr
 ![acc_angles](./images/acc_angles.png)
 
 <p></p>
-And also we need to convert the input of gyroscopy from the body rate(p,q,r) to Euler angles through the following equations:
+And also we need to convert the input of gyroscope from the body rate(p,q,r) to Euler angles through the following equations:
 <p align="center">
 <img src="images/att_eq3.png" width="300"/>
 </p> 
@@ -170,5 +170,5 @@ This step test whether the Estimator work on my PID Controller that I buiit on t
 
 
 ## Conclusion
-It is a good course and make me learn a lot about the sensors fusion through the skill of the Kalman Filter and Complimentary Filter.  However, in this project, I rely too much on using the Euler Angles for the rotation calculation with the help of Rotation Matrix.  However, rotation in Euler Angles has its limitation, so in the future, when I have time I would like to use Quatarion to calculate the rotation. And also I have interest to replace the Extended Kalman Filter with the Unscented Kalman Filter which is highly recommended to try during the class.
+It is a good course and make me learn a lot about the estimation through the skill of the Kalman Filter and Complimentary Filter.  In this project, I rely on using the Euler Angles for the rotation calculation with the help of Rotation Matrix.  However, rotation in Euler Angles has its limitation, so in the future, when I have time, I would like to use Quatarion to calculate the rotation. And also I have interest to replace the Extended Kalman Filter with the Unscented Kalman Filter which is highly recommended to try during the class.
 
