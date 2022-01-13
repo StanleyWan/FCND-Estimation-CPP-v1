@@ -129,6 +129,12 @@ If we only use the Accelerometer and Gyroscope for our estimation without the ma
 
         new yaw state = old yaw state + Kalman gain * (measurement - predict measurement)
 
+The following is the formula to get the Kalman gain:
+<p align="center">
+<img src="images/update1.png" width="800"/>
+</p>
+
+
 The code of Magnetometer Update has been implemented on the function UpdateFromMag() under the file  [QuadEstimatorEKF.cpp](./src/QuadEstimatorEKF.cpp).
 If we do it right and the parameter QWawStd in [QuadEstimatorEKF.txt](./config/QuadEstimatorEKF.txt) is well tune, we will find that the error will be less than 0.1 radian in heading fo at least 10 seconds of the simulation.  The following is the test result: 
 <p align="center">
