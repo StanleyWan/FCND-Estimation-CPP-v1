@@ -159,120 +159,19 @@ If we do it right and the parameter GPSPosXYStd, GPSPosZStd, GPSVelXYStd and GPS
 <img src="images/scenario11.gif" width="800"/>
 </p>
 
+![result11](./images/result11.png)
+
+
+
+## Step 6: Adding My PID Controller
+This step test whether the Estimator work on my PID Controller that I buiit on the last project.  Replaced with my QuadController.cpp and QuadControlParams.txt, and detune the position and velocity gains a little bit.  I find the estimator works great.  The following is the test result:  
+<p align="center">
+<img src="images/scenario12.gif" width="800"/>
+</p>
+
 ![result11](./images/result12.png)
 
 
-
-### Altitude Controller  
-Altitude controller in scenario 3 is a PD controller.  Based on the input of the position and velocity, the Altitude controller generates the desired acceleration which then be converted to thrust command to Roll-Pitch Controller as well as the drone. 
-
-![Equation2](./images/equation2.png)   
-
-We can based on the difference between the command position and actual position, multiply with the parameter of the Altitude controller to get a proportional control (p_term).  And the difference between the command of velocity and actual velocity , multiply with the parameter of the Altitude controller to get a Derivative control (d_term).
-
-### Lateral Controller
-Lateral Controller is a PD controller.  The drone generate lateral acceleration by changing the body orientation.  The equation have the following form:
-
-![Equation3](./images/equation3.png)   
-
-and xt is the target location, xa is the actual location, x_dot_t is the target velocity and x_dot_a is the actual velocity.  x_dot_dot is the feed forward acceleration.
-
-### YawController
-YawController is a Proportional controller.  We can get the command yaw rate by multiplying its parameter with the difference between the command psi and the actual psi.  
-
-![Equation4](./images/equation4.png)  
-
-The codes are implemented on the function of AltitudeControl() LateralPosition() YawControl() in the file [QuadControl.cpp](./src/QuadControl.cpp)
-
-The following is the testing result on scenario3.  It mainly tests the rotating and moving capability of a drone.
-<p align="center">
-<img src="images/scenario3.gif" width="500"/>
-</p>
-
-![s3testresult](./images/s3testresult.png)
-
-## Scenario 4: Non-idealities and robustness
-Here, we enhanced integral control to the Altitude controller and make it as a PID controller. 
-
-        posZErr = posZCmd - posZ;
-        integratedAltitudeError += posZErr * dt;
-        i_term = integratedAltitudeError * KiPosZ;
-        where i_item is the integral control
-              integratedAltitudeError is the integrated Altitude Error
-              KiPosZ is the parameter
-              posZCmd is the command Z position
-              posZ is the actual Z position
-              dt is the step of the easurements
-
-
-This test is used to show how well the controller can control under some unexpected situation such as unexpected heavier in weight or shift of the gravity center.  We config 3 quads that are all are trying to move one meter forward.  However, this time, each drone has a bit different
-<ul>
-        <li> The green quad has its center of mass shifted back.</li>
-        <li> The orange vehicle is an ideal quad </li>
-        <li> The red vehicle is heavier than usual</li>
-</ul>
-The following is the result of the AltitudeController without integral control.  We can see the red drone is failed.
-<p align="center">
-<img src="images/scenario4_fail.gif" width="500"/>
-</p>
-
-![s4testfaul](./images/s2testfail.png)      
-
-The following is the result of the Altitude Controller with integral control.  We can see the red drone is passed.
-<p align="center">
-<img src="images/scenario4_pass.gif" width="500"/>
-</p>
-
-![s4testpass](./images/s4testpass.png)    
-
-We can see the integral control really can improve the performance of the PD controller.      
-
-## scenario 5: Tracking trajectories
-This test is to test the performance of the whole 3D Drone controller.  The scenario has two quadcopters:
-<ul>
-        <li> the orange one is following traj/FigureEight.txt</li>
-        <li> the other one is following traj/FigureEightFF.txt which contain the data of feed forward acceleration.</li>
-</ul>
-The following is the result of the test:
-
-<p align="center">
-<img src="images/scenario5.gif" width="500"/>
-</p>
-
-![s5testresult](./images/s5testresult.png)
-
-From the result, it is not hard to see that when the red trajectory dded with the feed forward acceleration, those overshoot, setup time and settle time become more controllable. And also, the drone can follow the trajectory consistently.
-
-## The converter between the cascaded 3D controller and the rotors
-In between the controller and the rotors, there is a converter that convert the thrust and moments to the appropriate 4 different desired thrust forces for the moments. The value of the thrust forces will then pass to the engins of the rotors. The following is the rotor layout in a 3D drone.
-
-![3D Drone](./images/3D_Drone.png)
-The relationship between the lifting force on axes and the thrusts on the four rotor is as follows:
-<p></p>
-
-       p_bar = momentCmd.x/l      =    F1 - F2 - F3 + F4          
-       q_bar = momentCmd.y/l      =    F1 + F2 - F3 - F4          
-       r_bar = momentCmd.z/kappa  =   -F1 + F2 - F3 + F4          
-       c_bar = collThrustCmd      =    F1 + F2 + F3 + F4  
-
-       where    p_bar is the total force on x axis, q_bar is the total force on y axis,
-                r_bar is the total force on z axis, c_bar is the total lifting force
-                momentCmd.x, momentCmd.y and momentCmd.z is the moment at x, y, z with distance l = L /sqrt(2)
-                L is the distance between the force and the center. 
-                F1, F2, F3 and F4 are the thrust of the rotor1, rotor2, rotor3 and rotor4 respectively.
-                kapper is the thrust/drag ratio provided from the simulator
-<p></p>
-After Calculation, we get:
-
-        F1 = ( p_bar + q_bar - r_bar + c_bar) / 4
-        F2 = (-p_bar + q_bar + r_bar + c_bar) / 4         
-        F3 = (-p_bar - q_bar - r_bar + c_bar) / 4
-        F4 = ( p_bar - q_bar + r_bar + c_bar) / 4 
-<p></p>
-
-The code is implemented in the function GenerateMotorCommands() in [QuadControl.cpp](./src/QuadControl.cpp) 
-
-
 ## Conclusion
-Since most of the principles on implementing the 3D Drone controller have been taught in the course,  then the most difficulty part that left on this project is the parameter tuning.  It almost exhaust me because the controllers always need to retune once and once again.  I believe, in this project, the parameters setting is only barely enough to pass the scenario test.  In the future, when I have more time,  I would like to come back to retune this parameters so it has the smallest settle time, low over shoot and can perfectly follow the trajectory. 
+It is a good course and make me learn a lot about the sensors fusion through the skill of the Kalman Filter and Complimentary Filter.  However, in rotation I rely too much on using the Euler Angles for the rotation calculation with the help of Rotation Matrix.  However, rotation in Euler Angles has its limitation, so in the future, when I have time I would like to use Quatarion to calculate the rotation. And also I have interest to replace the Extended Kalman Filter with the Unscented Kalman Filter which is highly recommended during the class.
 
