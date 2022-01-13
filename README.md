@@ -39,7 +39,7 @@ All the C++ codes are in the [./src](./src) directory. However, most of my work 
 </ul>      
                 
 ## Step 1: Sensor Noise
-None of the sensors has no noise.  So we need to know how noisy of a sensor.  On this assignment,  the quad's sensor has been simulated to add with some noise. What we need to do is to record some sensor data on a static quad.  And then,  based on the normal distribution,  we the can calculated the standard deviation of a sensor data there.    
+None of the sensors has no noise.  So we need to know how noisy of a sensor.  On this assignment,  the quad's sensor has been simulated to add with some noise. What we need to do is to record some sensor data on a static quad.  And then,  based on the normal distribution,  we can calculated the standard deviation of a sensor data there.    
 The assignment is dedicated to collect the data of GPS X data and accelerometer X data into the [Graph1.txt](./config/log/Graph1.txt) and [Graph1.txt](./config/log/Graph1.txt) respectively.  Through the standard deviation equation:
 
 ![sd_equation](./images/sd_equation.png)  
@@ -56,11 +56,9 @@ The right standard deviative should contain 68% or more data.  The following is 
 ![result6](./images/result6.png)  
 
 ## Step 2: Attitude Control
-The step is simply to build a complimentary filter with the input of Accelerometer and Gyroscope to estimate the attitude of the drone.  The requirement of this step for us is only to convert the the data of gyroscope  to Euler Angles.  However,  I believe it is good for me to present on building the complimentary filter a little bit detail.
-The state and measurements are given by:
+This step is to build a complimentary filter with the input of Accelerometer and Gyroscope to estimate the attitude of a drone.  
+The state and measurements are given by:  
 ![att_eq1](./images/att_eq1.png)  
-where Xt is the state of the drone, Zt is the measurement from Accelerometer and Gyroscope. Theta is pitch angle and psi is the rolling angle measured from Accelerometer.
-p and q is the rolling rate of x-axis and y-axis measured from Gyroscope
 <p></p>
 To build a complimentary filter,  the following equation is using: 
 
