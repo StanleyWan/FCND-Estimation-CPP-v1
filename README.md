@@ -40,7 +40,7 @@ All the C++ codes are in the [./src](./src) directory. However, most of my work 
                 
 ## Step 1: Sensor Noise
 None of the sensors has no noise.  So we need to know how noisy of a sensor.  On this assignment,  the quad's sensor has been simulated to add with some noise. What we need to do is to record some sensor data on a static quad.  And then,  based on the normal distribution,  we can calculated the standard deviation of a sensor data there.    
-The assignment is dedicated to collect the data of GPS X data and accelerometer X data into the [Graph1.txt](./config/log/Graph1.txt) and [Graph1.txt](./config/log/Graph2.txt) respectively.  Through the standard deviation equation:
+The assignment is dedicated to collect the data of GPS X data and accelerometer X data into the [Graph1.txt](./config/log/Graph1.txt) and [Graph2.txt](./config/log/Graph2.txt) respectively.  Through the standard deviation equation:
 
 ![sd_equation](./images/sd_equation.png)  
 
