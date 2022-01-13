@@ -69,7 +69,7 @@ where the theta_hat and psi_hat is the state of X, tau is the time constant and 
 <p></p>
 We need to convert the acceleration data into the Euler angles by the following equation: 
 
-[acc_angles](./images/acc_angles.png)
+![acc_angles](./images/acc_angles.png)
 
 <p></p>
 And also we need to convert the input of gyroscopy from the body rate(p,q,r) to Euler angles through the following equations:
