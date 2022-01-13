@@ -33,7 +33,7 @@ The assignment of this project is mainly to develop key software functions for D
 # Implementation 
 All the C++ codes are in the [./src](./src) directory. However, most of my work only focus on the below four files:  <ul>
         <li> [QuadEstimatorEKF.cpp](./src/QuadEstimatorEKF.cpp): it contains the software modules that need to build the Estimator.</li>
-        <li> [QuadEstimatorEKF.txt](./src/QuadEstimatorEKF.txt): it contains the software modules that need to build the Estimator.</li>
+        <li> [QuadEstimatorEKF.txt](./config/QuadEstimatorEKF.txt): it contains the software modules that need to build the Estimator.</li>
         <li> [QuadControl.cpp](./src/QuadControl.cpp): it contains the software modules that need to build the cascaded 3D controller.</li>
         <li> [QuadControlParams.txt](./config/QuadControlParams.txt): the file contains the configuration data for the cascaded 3D controller.</li>
 </ul>      
