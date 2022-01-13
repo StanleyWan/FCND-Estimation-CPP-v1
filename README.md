@@ -56,8 +56,7 @@ The right standard deviative should contain 68% or more data.  The following is 
 ![result6](./images/result6.png)  
 
 ## Step 2: Attitude Control
-This step is to build a complimentary filter with the input of Accelerometer and Gyroscope to estimate the attitude of a drone.  
-The state and measurements are given by:  
+This step is to build a complimentary filter with the input of Accelerometer and Gyroscope to estimate the attitude of a drone. The state and measurements are given:  
 ![att_eq1](./images/att_eq1.png)  
 <p></p>
 To build a complimentary filter,  the following equation is using: 
@@ -65,7 +64,7 @@ To build a complimentary filter,  the following equation is using:
 ![att_eq2](./images/att_eq2.png)  
 where the theta_hat and psi_hat is the state of X, tau is the time constant and dt is time period measurement  
 <p></p>
-We need to convert the acceleration data into the Euler angles by the following equation: 
+The first part of this equation needs rolling angle and pitch angle from the Gyro.  And the second part of this equation needs the rolling angles and pitch angle from Accelerometer.  We thus need to convert the acceleration data into the Euler angles by the following equation: 
 
 ![acc_angles](./images/acc_angles.png)
 
@@ -85,8 +84,8 @@ A success Attitude Controller should be able to reduce the attitdue errors to ge
 ![result7](./images/result7.png)
 
 ## Step 3: Predict State
-This step is to show how to get the predict state and covariance after transit 1 step (i.e. after 1 dt). Since transit forward may involve the sine function of the tilt angles, Extended Kalman Filter will be used.  So we need to show how to build up the Jocobian Matrix also.
-The Body Rate Controller is a P Controller.  The responsibility of the controller is to generate the moments command.  Through the error between the body rate command and actual body rate that fed back from the drone, we could find out desired moments to the drone.  
+This step is to show how to get the predict state and covariance after transit 1 step (i.e. after 1 dt). Since transit forward may involve the sine function of the tilt angles, Extended Kalman Filter thus is used.  So we need to show how to build up the Jocobian Matrix also.
+ 
 The following is the procedure on how to transit the drone a step in 1D:  
 <p align="center">
 <img src="images/predict1.png" width="800"/>
@@ -121,7 +120,7 @@ If we do it right on Predict Covariance and also we tune the QPosXYstd and QVelX
 
 
 ## Step 4: Magnetometer Update
-If we only use the Accelerometer and Gyroscope for our estimation without the magnetometer update, we will notice that the estimate yaw is drifting away.  This step is try to make an update for the yaw value.  The algorithm for update the yaw is simple.  It is simply collect data from the Magneometer and them make a normalization to ensure the yaw angle within the boundance (-pI..PI).  And then we make an update yaw angle as follows:
+If we only use the Accelerometer and Gyroscope for our estimation without the magnetometer update, we will notice that the estimate yaw is drifting away.  This step is try to make an update for the yaw value.  The algorithm for update the yaw is simple.  It is simply collect data from the Magneometer and then make a normalization to ensure the yaw angle within the boundary (-pI..PI).  And then we make an update yaw angle as follows:
 
         new yaw state = old yaw state + Kalman gain * (measurement - predict measurement)
 
@@ -152,7 +151,7 @@ The following is the procedure to update the GPS:
 </p>
 
 The code of GPS Update has been implemented on the function UpdateFromGPS() under the file  [QuadEstimatorEKF.cpp](./src/QuadEstimatorEKF.cpp).  
-If we do it right and the parameter GPSPosXYStd, GPSPosZStd, GPSVelXYStd and GPSVelZStd in [QuadEstimatorEKF.txt](./config/QuadEstimatorEKF.txt) are well tune, we will find that the position error will be less than 0.1m.  The following is the test result: 
+If we do it right and the parameter GPSPosXYStd, GPSPosZStd, GPSVelXYStd and GPSVelZStd in [QuadEstimatorEKF.txt](./config/QuadEstimatorEKF.txt) are well tune, we will find that the position error will be less than 1m.  The following is the test result: 
 <p align="center">
 <img src="images/scenario11.gif" width="800"/>
 </p>
@@ -162,7 +161,7 @@ If we do it right and the parameter GPSPosXYStd, GPSPosZStd, GPSVelXYStd and GPS
 
 
 ## Step 6: Adding My PID Controller
-This step test whether the Estimator work on my PID Controller that I buiit on the last project.  Replaced with my QuadController.cpp and QuadControlParams.txt, and detune the position and velocity gains a little bit.  I find the estimator works great.  The following is the test result:  
+This step test whether the Estimator work on my PID Controller that I buiit on the last project.  Replaced with my QuadController.cpp and QuadControlParams.txt, and detune the position and velocity gains a little bit,  I find the estimator works great.  The following is the test result:  
 <p align="center">
 <img src="images/scenario12.gif" width="800"/>
 </p>
@@ -171,5 +170,5 @@ This step test whether the Estimator work on my PID Controller that I buiit on t
 
 
 ## Conclusion
-It is a good course and make me learn a lot about the sensors fusion through the skill of the Kalman Filter and Complimentary Filter.  However, in rotation I rely too much on using the Euler Angles for the rotation calculation with the help of Rotation Matrix.  However, rotation in Euler Angles has its limitation, so in the future, when I have time I would like to use Quatarion to calculate the rotation. And also I have interest to replace the Extended Kalman Filter with the Unscented Kalman Filter which is highly recommended during the class.
+It is a good course and make me learn a lot about the sensors fusion through the skill of the Kalman Filter and Complimentary Filter.  However, in this project, I rely too much on using the Euler Angles for the rotation calculation with the help of Rotation Matrix.  However, rotation in Euler Angles has its limitation, so in the future, when I have time I would like to use Quatarion to calculate the rotation. And also I have interest to replace the Extended Kalman Filter with the Unscented Kalman Filter which is highly recommended to try during the class.
 
