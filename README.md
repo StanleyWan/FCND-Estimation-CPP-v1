@@ -129,7 +129,7 @@ If we only use the Accelerometer and Gyroscope for our estimation without the ma
 
         new yaw state = old yaw state + Kalman gain * (measurement - predict measurement)
 
-The following is the formula to get the Kalman gain:
+The following is the formula in matrix form to get the Kalman gain:
 <p align="center">
 <img src="images/update1.png" width="800"/>
 </p>
@@ -145,7 +145,25 @@ If we do it right and the parameter QWawStd in [QuadEstimatorEKF.txt](./config/Q
 
 
 
-## Scenario 3: Position/velocity and yaw angle control(scenario 3)
+## Step 5: Closed Loop + GPS Update
+If we just update the position and velocity with IMU and without GPS,  the drone will only drift away.  
+<p align="center">
+<img src="images/scenario11a.gif" width="800"/>
+</p>
+The following is the procedure to update the GPS:  
+<p align="center">
+<img src="images/gps1.png" width="800"/>
+</p>
+
+The code of GPS Update has been implemented on the function UpdateFromGPS() under the file  [QuadEstimatorEKF.cpp](./src/QuadEstimatorEKF.cpp).  
+If we do it right and the parameter GPSPosXYStd, GPSPosZStd, GPSVelXYStd and GPSVelZStd in [QuadEstimatorEKF.txt](./config/QuadEstimatorEKF.txt) are well tune, we will find that the position error will be less than 0.1m.  The following is the test result: 
+<p align="center">
+<img src="images/scenario11.gif" width="800"/>
+</p>
+
+![result11](./images/result12.png)
+
+
 
 ### Altitude Controller  
 Altitude controller in scenario 3 is a PD controller.  Based on the input of the position and velocity, the Altitude controller generates the desired acceleration which then be converted to thrust command to Roll-Pitch Controller as well as the drone. 
